@@ -1,0 +1,8 @@
+{
+  "name": "matchbrawl-arene",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Serveur en ligne de l'Arène de Match Brawl (relais WebSocket, sans dépendance)",
+  "scripts": { "start": "node serveur_arene.js" },
+  "engines": { "node": ">=18" }
+}
