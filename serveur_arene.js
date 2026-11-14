@@ -32,7 +32,9 @@ function loadGame() {
 // ---------- salles
 const rooms = new Map();               // code -> { code, name, host, peers: Set, started }
 let nextId = 1;
-const clean = s => String(s || '').replace(/[^\p{L}\p{N} '\-_.]/gu, '').slice(0, 20).trim();
+// 1.6.0 : on garde la marque invisible (U+2063 U+2064) que le jeu place devant le nom : l'hôte s'en sert
+// pour reconnaître un joueur de la même version. Sans elle, il refuse tout le monde (« La salle est pleine »).
+const clean = s => String(s || '').replace(/[^\p{L}\p{N} '\-_.\u2063\u2064]/gu, '').slice(0, 20).trim();
 function roomList() { return [...rooms.values()].map(r => ({ code: r.code, name: r.name, n: 1 + r.peers.size, started: r.started })); }
 function newCode() { for (let i = 0; i < 1000; i++) { const c = String(1000 + Math.floor(Math.random() * 9000)); if (!rooms.has(c)) return c; } return String(Date.now() % 100000); }
 function leave(c) {
